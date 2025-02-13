@@ -24,4 +24,18 @@ const deletePerson = async (req, res) => {
   res.json({ message: "Person deleted" });
 };
 
-module.exports = { addPerson, getPersons, deletePerson };
+// Update a person
+const updatePerson = async (req, res) => {
+  try {
+    const updatedPerson = await Person.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updatedPerson);
+  } catch (error) {
+    res.status(500).json({ error: "Error updating person" });
+  }
+};
+
+module.exports = { addPerson, getPersons, deletePerson, updatePerson };
